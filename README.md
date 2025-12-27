@@ -1,36 +1,99 @@
-# Exam Portal - AWS Elastic Beanstalk Deployment
+# Exam Portal - AWS Cloud Application
 
-A modern, full-stack exam portal application with separate frontend and backend deployments on AWS Elastic Beanstalk, integrated with RDS MySQL database.
+A modern, full-stack exam portal application deployed on AWS with HTTPS, Application Load Balancers, and RDS MySQL database. Features include student management, exam creation, automated grading, and exam assignment system.
 
-## 🌟 Features
+## 🌟 Version 2.0 Features
 
-### Student Features
-- ✅ User registration and authentication
-- ✅ Browse and take exams
-- ✅ View exam results and history
+### 🔒 Security & Infrastructure
+- ✅ **Full HTTPS Support** - SSL/TLS encryption for all communications
+- ✅ **Application Load Balancers** - High availability and scalability
+- ✅ **Custom Domain** - Professional domain with Route 53
+- ✅ **AWS Certificate Manager** - Managed SSL certificates
+- ✅ **Responsive Design** - Mobile-friendly interface
+
+### 👨‍🎓 Student Features
+- ✅ User registration with auto-login
+- ✅ Login with email or username
+- ✅ Browse assigned exams
+- ✅ Take exams with timer
+- ✅ View results and history
 - ✅ Profile management
 - ✅ Password change functionality
 - ✅ Statistics dashboard
 
-### Admin Features
+### 👨‍💼 Admin Features
 - ✅ Secure admin authentication
 - ✅ Dashboard with statistics
 - ✅ Create, edit, and delete exams
+- ✅ **Import exams from text files**
 - ✅ Add multiple-choice questions
+- ✅ **Assign exams to specific students**
 - ✅ Manage students (add, activate, deactivate, delete)
 - ✅ Reset student passwords
 - ✅ View all exam results
+- ✅ Root admin can manage other admins
 - ✅ Profile management
 
-### Technical Features
-- ✅ Modern, responsive UI with Font Awesome icons
-- ✅ RDS MySQL database integration
-- ✅ RESTful API architecture
-- ✅ CORS enabled for cross-origin requests
-- ✅ Graceful error handling
-- ✅ Professional design system
+### 🎨 UI/UX Features
+- ✅ Modern gradient background
+- ✅ Font Awesome icons
+- ✅ Inter font family
+- ✅ Responsive design for all devices
+- ✅ Smooth animations
+- ✅ Professional color scheme
+- ✅ Mobile-optimized interface
 
-## 🏗️ Architecture
+## 🏗️ AWS Architecture
+
+### Architecture Diagram
+
+![AWS Architecture Diagram](architecture-diagram.drawio.png)
+
+### High-Level Architecture
+
+```
+Internet Users
+      ↓
+Route 53 (DNS)
+      ↓
+┌─────────────────┬─────────────────┐
+│   Frontend      │    Backend      │
+│   (HTTPS)       │    (HTTPS)      │
+└────────┬────────┴────────┬────────┘
+         │                 │
+    ALB (443)         ALB (443)
+         │                 │
+   Elastic Beanstalk  Elastic Beanstalk
+         │                 │
+    EC2 Instances     EC2 Instances
+    (Static Files)    (Flask API)
+                           │
+                      RDS MySQL
+                      (Database)
+```
+
+### Architecture Components
+
+| Component | Service | Purpose |
+|-----------|---------|---------|
+| **DNS** | Route 53 | Domain name resolution |
+| **SSL/TLS** | Certificate Manager | HTTPS encryption |
+| **Frontend** | Elastic Beanstalk + ALB | Static web hosting |
+| **Backend** | Elastic Beanstalk + ALB | REST API |
+| **Database** | RDS MySQL | Data persistence |
+| **Monitoring** | CloudWatch | Logs and metrics |
+| **Storage** | S3 | Application versions |
+
+**📖 Detailed Architecture**: See [ARCHITECTURE.md](ARCHITECTURE.md) for complete architecture documentation.
+
+## 🌐 Live Application
+
+- **Frontend**: https://exam.venkatgh.people.aws.dev
+- **Backend API**: https://api.venkatgh.people.aws.dev
+- **Admin Console**: https://exam.venkatgh.people.aws.dev/admin.html
+- **Student Portal**: https://exam.venkatgh.people.aws.dev/student-auth.html
+
+## 🚀 Features
 
 ```
 exam-portal/
@@ -453,8 +516,48 @@ For issues and questions:
 - Username: `admin`
 - Password: `admin123`
 
+**Database:**
+- Host: `venkat-rds.ccb68646w9ed.us-east-1.rds.amazonaws.com`
+- Database: `examportal`
+- User: `admin`
+- Password: `Admin123`
+
 **Note**: Change default credentials in production!
+
+## 📦 What's New in v2.0
+
+### Infrastructure Upgrades
+- Migrated to Application Load Balancers for both frontend and backend
+- Implemented full HTTPS with AWS Certificate Manager
+- Custom domain configuration with Route 53
+- Enhanced security groups and network isolation
+
+### New Features
+- **Exam Assignment System**: Assign specific exams to selected students
+- **Exam Import**: Import exams from text files
+- **Auto-Login**: Students automatically logged in after registration
+- **Username Support**: Login with email or username
+- **Responsive Design**: Full mobile support
+- **Admin Management**: Root admin can manage other admins
+
+### Bug Fixes
+- Fixed database connection issues
+- Resolved CORS configuration
+- Fixed JavaScript syntax errors
+- Improved error handling
+
+See [RELEASE_NOTES_V2.0.md](RELEASE_NOTES_V2.0.md) for complete release notes.
+
+## 📚 Documentation
+
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Detailed AWS architecture and data flow
+- **[DEPLOYMENT.md](DEPLOYMENT.md)** - Step-by-step deployment guide
+- **[EXAM_FILE_FORMAT.md](EXAM_FILE_FORMAT.md)** - Exam import file format
+- **[FEATURES.md](FEATURES.md)** - Complete feature list
+- **[RELEASE_NOTES_V2.0.md](RELEASE_NOTES_V2.0.md)** - Version 2.0 release notes
 
 ---
 
-**Built with ❤️ using Flask, MySQL, and AWS Elastic Beanstalk**
+**Built with ❤️ using Flask, MySQL, and AWS Cloud Services**
+
+**Version**: 2.0 | **Last Updated**: December 27, 2025
